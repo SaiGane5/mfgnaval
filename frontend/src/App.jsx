@@ -1,6 +1,5 @@
 import React from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
 import Predict from './pages/Predict'
 import './App.css'
 
@@ -18,7 +17,7 @@ function App() {
       </nav>
       <main className="max-w-7xl mx-auto p-4">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Predict />} />
           <Route path="/predict" element={<Predict />} />
         </Routes>
       </main>

@@ -43,9 +43,15 @@ class PredictRequest(BaseModel):
     mf: float
 
 
+class Suggestion(BaseModel):
+    severity: str
+    message: str
+
+
 class PredictResponse(BaseModel):
     gt_c_decay: float
     gt_t_decay: float
+    suggestions: list[Suggestion] = []
 
 
 @app.on_event("startup")
@@ -111,7 +117,12 @@ def predict(payload: PredictRequest):
 
         preds = model_service.predict(df)
         gt_c, gt_t = float(preds[0][0]), float(preds[0][1])
-        return PredictResponse(gt_c_decay=gt_c, gt_t_decay=gt_t)
+
+        # Run lightweight analysis to generate suggestions for users
+        suggestions = model_service.analyze(df, preds)
+
+        # Normalize suggestions to Pydantic-friendly types
+        return PredictResponse(gt_c_decay=gt_c, gt_t_decay=gt_t, suggestions=suggestions)
     except FileNotFoundError:
         raise HTTPException(status_code=503, detail="Model not trained. Call /api/train first.")
     except Exception as exc:

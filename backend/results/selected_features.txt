@@ -1,0 +1,24 @@
+Total features: 20
+Selected from: 23 engineered features
+
+Selected Features:
+  1. t2                        (importance: 0.9230, type: Original)
+  2. p2                        (importance: 0.5100, type: Original)
+  3. p48                       (importance: 0.4551, type: Original)
+  4. gtt                       (importance: 0.4413, type: Original)
+  5. ggn_squared               (importance: 0.4032, type: Engineered)
+  6. ggn                       (importance: 0.3855, type: Original)
+  7. t48_squared               (importance: 0.3484, type: Engineered)
+  8. pexh                      (importance: 0.3458, type: Original)
+  9. t48                       (importance: 0.3274, type: Original)
+ 10. power_indicator           (importance: 0.2871, type: Engineered)
+ 11. tic                       (importance: 0.2871, type: Original)
+ 12. efficiency_proxy          (importance: 0.2703, type: Engineered)
+ 13. gtn_squared               (importance: 0.2607, type: Engineered)
+ 14. gtn                       (importance: 0.2373, type: Original)
+ 15. t_p_product               (importance: 0.2088, type: Engineered)
+ 16. torque_ratio              (importance: 0.1887, type: Engineered)
+ 17. mf_squared                (importance: 0.1569, type: Engineered)
+ 18. tp                        (importance: 0.1500, type: Original)
+ 19. ts                        (importance: 0.1493, type: Original)
+ 20. mf                        (importance: 0.1467, type: Original)

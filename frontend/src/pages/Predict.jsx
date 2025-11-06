@@ -129,6 +129,21 @@ export default function Predict(){
             <div className="space-y-3">
               <ResultCard title="GT Compressor decay state coefficient" value={result.gt_c_decay} hint={outputHints.gt_c_decay || 'GT Compressor decay state coefficient (unitless)'} />
               <ResultCard title="GT Turbine decay state coefficient" value={result.gt_t_decay} hint={outputHints.gt_t_decay || 'GT Turbine decay state coefficient (unitless)'} />
+
+              {/* Decision suggestions from backend */}
+              <div className="card">
+                <h4 className="font-medium text-gray-700">Recommendations</h4>
+                <div className="mt-3 space-y-2">
+                  {(result.suggestions || []).map((s, idx)=> (
+                    <div key={idx} className="flex items-start gap-3">
+                      <div>
+                        <span className={`inline-block px-2 py-1 text-xs font-semibold rounded ${s.severity === 'critical' ? 'bg-red-100 text-red-800' : s.severity === 'warn' ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-50 text-blue-800'}`}>{s.severity.toUpperCase()}</span>
+                      </div>
+                      <div className="text-sm text-gray-700">{s.message}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           ) : (
             <div className="card text-sm text-gray-600">Results will appear here after you run a prediction.</div>
