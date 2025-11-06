@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - FRONTEND_ORIGINS=*
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    # Production frontend served by nginx (multi-stage Dockerfile copies build output)
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: "http://backend:8000"
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Development frontend - runs vite dev server with hot reload
+  frontend-dev:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app:cached
+      - /app/node_modules
+    # Ensure dependencies are installed inside the container on startup, then run dev
+    command: ["sh", "-c", "npm install --no-audit --no-fund && npm run dev"]
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    restart: unless-stopped
+
+  # nginx: simple reverse proxy for production (optional)
+  nginx:
+    image: nginx:alpine
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - ./deploy/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    # Use 8080 on the host by default to avoid common port 80 conflicts on macOS
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/" ]
+      interval: 30s
+      timeout: 5s
+      retries: 3

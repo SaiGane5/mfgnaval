@@ -1,0 +1,88 @@
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Node / frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+# build output
+build/
+dist/
+.next/
+.out/
+.cache/
+.public/
+
+# Environment / secrets
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.pytest_cache/*
+.python-version
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+env.bak/
+venv.bak/
+
+# Packaging / distribution
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+*.egg
+*.whl
+
+# Test / coverage
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+.cache/
+nosetests.xml
+
+# Database / migrations / local data
+*.sqlite3
+*.db
+instance/
+*.sql
+*.sqlite
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Misc
+.mypy_cache/
+cython_debug/
+celerybeat-schedule
+coverage/
+!.gitkeep
+
+# OS swap / temp
+*.swp
+*~
+.project
