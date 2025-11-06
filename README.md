@@ -73,6 +73,19 @@ Build both images and use nginx as reverse proxy (example using docker-compose i
 docker-compose -f docker-compose.yml up --build -d
 ```
 
+## Deploying to Render.com (Docker)
+
+This repository includes a `render.yaml` manifest that defines two Docker services (backend and frontend). You can use it to create linked services on Render or create them manually.
+
+Steps (high level):
+
+1. Push this repo to a Git provider (GitHub/GitLab) and connect it to Render.
+2. Create a new Web Service on Render and point it to `backend/Dockerfile`. Set the health check path to `/api/health`.
+3. Create another Web Service for the frontend using `frontend/Dockerfile`. Set the `VITE_API_URL` environment variable to the backend URL (for example: `https://mfg-backend.onrender.com`).
+4. Optionally keep `FRONTEND_ORIGINS` environment variable set on the backend to allow CORS from the frontend domain.
+
+Alternatively, use the included `render.yaml` as a manifest to define both services in one place — after creating services you may need to update the frontend's `VITE_API_URL` to the resolved backend URL.
+
 ## API
 
 Health check:

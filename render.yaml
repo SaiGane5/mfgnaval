@@ -1,0 +1,25 @@
+# Render manifest for deploying backend and frontend as separate services
+# Replace placeholders (e.g., apiURL) after creating services on render.com if needed.
+services:
+  - type: web
+    name: mfg-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    plan: starter
+    region: oregon
+    autoDeploy: true
+    envVars:
+      - key: FRONTEND_ORIGINS
+        value: "*"
+    healthCheckPath: /api/health
+
+  - type: web
+    name: mfg-frontend
+    env: docker
+    dockerfilePath: frontend/Dockerfile
+    plan: starter
+    region: oregon
+    autoDeploy: true
+    envVars:
+      - key: VITE_API_URL
+        value: "https://{mfg-backend}.onrender.com" # replace with actual backend URL from Render after deployment
